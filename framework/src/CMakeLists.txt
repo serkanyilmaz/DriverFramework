@@ -42,6 +42,7 @@ if("${DF_TARGET}" STREQUAL "nuttx")
 		Time.cpp
 		)
 	add_dependencies(df_driver_framework platforms__nuttx)
+	target_include_directories(df_driver_framework PUBLIC ../../drivers)
 else()
 	df_add_library(df_driver_framework
 		DriverFramework.cpp
@@ -59,6 +60,7 @@ else()
 		BaroSensor.cpp
 		MagSensor.cpp
 		)
+	target_include_directories(df_driver_framework PUBLIC ../../drivers)
 endif()
 
 # vim: set noet fenc=utf-8 ff=unix ft=cmake :
