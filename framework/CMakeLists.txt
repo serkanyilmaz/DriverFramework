@@ -43,7 +43,7 @@ if(COMMAND px4_add_module)
 			platforms__common
 		)
 
-	target_link_libraries(lib__DriverFramework__framework df_driver_framework)
+	target_link_libraries(lib__DriverFramework__framework PRIVATE df_driver_framework)
 endif()
 
 # vim: set noet fenc=utf-8 ff=unix ft=cmake :
