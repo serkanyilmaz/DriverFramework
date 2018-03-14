@@ -49,6 +49,8 @@
 #define IMU_DEVICE_PATH "/dev/i2c-mpu6050"
 #elif defined(__DF_RPI)
 #define IMU_DEVICE_PATH "/dev/spidev0.1"
+#elif defined(__DF_OPI)
+#define IMU_DEVICE_PATH "/dev/spidev1.0"
 #elif defined(__DF_EDISON)
 #define IMU_DEVICE_PATH "/dev/spidev5.1"
 #elif defined(__DF_OCPOC)
@@ -61,6 +63,10 @@
 #include <linux/spi/spidev.h>
 #define IMU_DEVICE_ACC_GYRO "/dev/spidev0.3"
 #define IMU_DEVICE_MAG "/dev/spidev0.2"
+#if defined(__DF_OPI)
+#include <linux/spi/spidev.h>
+#define IMU_DEVICE_ACC_GYRO "/dev/spidev1.0"
+#define IMU_DEVICE_MAG "/dev/spidev1.0"
 #elif defined(__DF_RPI_SINGLE)
 #define IMU_DEVICE_ACC_GYRO "/dev/spidev0.1"
 #define IMU_DEVICE_MAG "/dev/spidev0.1"

@@ -237,7 +237,7 @@ private:
 		int bulkRead(uint8_t address, uint8_t *out_buffer, int length)
 		{
 
-#if defined(__DF_RPI)
+#if defined(__DF_RPI) || defined(__DF_OPI)
 			return _bulkRead(address | SPI_NO_CS, out_buffer, length);
 #else
 			// Not implemented/tested.

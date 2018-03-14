@@ -1,6 +1,7 @@
 .DS_Store
 build_linux
 build_rpi
+build_opi
 build_qurt
 build_bebop
 build_edison

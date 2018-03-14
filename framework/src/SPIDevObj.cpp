@@ -41,7 +41,7 @@
 #include "OSConfig.h"
 #include "DevIOCTL.h"
 
-#if defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
+#if defined(__DF_OPI) || defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
 #include <sys/ioctl.h>
 #include <linux/types.h>
 #include <alloca.h>
@@ -100,7 +100,7 @@ int SPIDevObj::readReg(DevHandle &h, uint8_t address, uint8_t &val)
 
 int SPIDevObj::_readReg(uint8_t address, uint8_t &val)
 {
-#if defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
+#if defined(__DF_OPI) || defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
 	/* implement sensor interface via rpi2 spi */
 	// constexpr int transfer_bytes = 1 + 1; // first byte is address
 	uint8_t write_buffer[2] = {0}; // automatic write buffer
@@ -212,7 +212,7 @@ int SPIDevObj::_writeReg(uint8_t address, uint8_t val)
 
 int SPIDevObj::_writeReg(uint8_t address, uint8_t *in_buffer, uint16_t length)
 {
-#if defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
+#if defined(__DF_OPI) || defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
 	/* implement sensor interface via rpi2 spi */
 	uint8_t write_buffer[length + 1];// automatic write buffer: first byte is address
 	memset(&write_buffer, 0, length + 1);
@@ -323,7 +323,7 @@ int SPIDevObj::_transfer(uint8_t *write_buffer, uint8_t *read_buffer, uint8_t le
 
 int SPIDevObj::bulkRead(DevHandle &h, uint8_t address, uint8_t *out_buffer, int length)
 {
-#if defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
+#if defined(__DF_OPI) || defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
 	/* implement sensor interface via rpi2 spi */
 	SPIDevObj *obj = DevMgr::getDevObjByHandle<SPIDevObj>(h);
 
@@ -363,7 +363,7 @@ int SPIDevObj::bulkRead(DevHandle &h, uint8_t address, uint8_t *out_buffer, int 
 
 int SPIDevObj::_bulkRead(uint8_t address, uint8_t *out_buffer, int length)
 {
-#if defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
+#if defined(__DF_OPI) || defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
 	DF_LOG_DEBUG("_bulkRead: length = %d", length);
 	/* implement sensor interface via rpi spi */
 	int transfer_bytes = 1 + length; // first byte is address
@@ -439,7 +439,7 @@ int SPIDevObj::_bulkRead(uint8_t address, uint8_t *out_buffer, int length)
 
 int SPIDevObj::setLoopbackMode(DevHandle &h, bool enable)
 {
-#if defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
+#if defined(__DF_OPI) || defined(__DF_RPI) || defined(__DF_EDISON) || defined(__DF_BEBOP) || defined(__DF_OCPOC)
 	/* implement sensor interface via rpi2 spi */
 	DF_LOG_ERR("ERROR: attempt to set loopback mode in software fails.");
 	return -1;
@@ -456,7 +456,7 @@ int SPIDevObj::setLoopbackMode(DevHandle &h, bool enable)
 
 int SPIDevObj::_setBusFrequency(uint32_t freq_hz)
 {
-#if defined(__DF_RPI) || defined(__DF_BEBOP) || defined(__DF_OCPOC) || defined(__DF_EDISON)
+#if defined(__DF_OPI) || defined(__DF_RPI) || defined(__DF_BEBOP) || defined(__DF_OCPOC) || defined(__DF_EDISON)
 	return ::ioctl(m_fd, SPI_IOC_WR_MAX_SPEED_HZ, &freq_hz);
 #elif defined(__DF_QURT)
 	struct dspal_spi_ioctl_set_bus_frequency bus_freq;
